@@ -1,6 +1,8 @@
+import random
 from faker import Faker
-from businessCard import BusinessCard
+from businessCard import BusinessCard, BaseContact, BusinessContact
 
+#----------------------------------------------------------------
 def generate_business_card(quantity=1):
     business_cards = list()
     fake = Faker('pl_PL')
@@ -8,37 +10,50 @@ def generate_business_card(quantity=1):
     for _ in range(quantity):
         bcard = BusinessCard(   fake.first_name(),
                                 fake.last_name(),
-                                fake.company(),
-                                fake.job(),
-                                fake.email(),
-                                fake.phone_number()    )
+                                fake.phone_number() )
 
         business_cards.append(bcard)
 
     return business_cards
 
+#----------------------------------------------------------------
+def create_contacts(quantity=1):
+    bcards  = list()
+    fake = Faker('pl_PL')
+
+    for _ in range(quantity):
+        if random.randrange(2) == 0:
+            bcard = BaseContact(    fake.email(),
+                                    fake.first_name(),
+                                    fake.last_name(),
+                                    fake.phone_number() )
+        else:
+            bcard = BusinessContact(    fake.company(),
+                                        fake.job(),
+                                        fake.first_name(),
+                                        fake.last_name(),
+                                        fake.phone_number() )
+                                        
+        bcards.append(bcard)
+
+    return bcards
+    
+#================================================================
 if __name__ == "__main__":
-    cards = generate_business_card(5)
+    first_name      = 'Natan'
+    last_name       = 'Bodych'
+    email           = 'natan78@gmail.com'
+    phone_number    = '+48 32 032 71 77'
+    work_number     = '664 680 015'
+    company         = 'Bojczuk s.c.'
+    job             = 'Hutnik'
 
-    by_first_name   = sorted(cards, key=lambda card: card.first_name)
-    by_last_name    = sorted(cards, key=lambda card: card.last_name)
-    by_email        = sorted(cards, key=lambda card: card.email)
+    base_contact        = BaseContact(email, first_name, last_name, phone_number)
+    business_contact    = BusinessContact(company, job, first_name, last_name, work_number)
 
-    for card in by_first_name:
-        print(card)
-    print('')
+    base_contact.contact()
+    business_contact.contact()
 
-    for card in by_last_name:
-        print(card)
-    print('')
+    print(base_contact.label_length)
 
-    for card in by_email:
-        print(card)
-    print('')
-
-    for card in cards:
-        card.contact()
-    print('')
-
-    for card in cards:
-        print(card.length_name)
+    print(create_contacts(3))

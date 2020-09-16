@@ -1,26 +1,50 @@
+#================================================================
 class BusinessCard:
-    def __init__(self, first_name, last_name, company, job, email, phone_number):
+    def __init__(self, first_name, last_name, phone_number):
         self.first_name     = first_name
         self.last_name      = last_name
-        self.company        = company
-        self.job            = job
-        self.email          = email
         self.phone_number   = phone_number
-
-        self.length_name   = 0
+        
+        self.label_length   = 0
         
     @property
-    def length_name(self):
-        return self._length_name
+    def label_length(self):
+        return self._label_length
 
-    @length_name.setter
-    def length_name(self, value):
-        self._length_name = len(self.first_name) + len(self.last_name) + 1
+    @label_length.setter
+    def label_length(self, value):
+        self._label_length = len(self.first_name) + len(self.last_name) + 1
 
     #----------------------------------------------------------------
     def __repr__(self):
-        return f"{self.first_name} {self.last_name} {self.email}"
+        return f"{self.first_name} {self.last_name}"
 
     def contact(self):
-        print("Kontaktuję się z...", self.first_name, self.last_name, self.email)
+        print("Wybieram numer ", self.phone_number, "i dzwonię do", self.first_name, self.last_name)
 
+#================================================================
+class BaseContact(BusinessCard):
+    def __init__(self, email, *args):
+        super().__init__(*args)
+
+        self.email  = email
+
+    def __repr__(self):
+        return f"{self.first_name} {self.last_name} as BaseContact"
+
+    def contact(self):
+        super().contact()
+
+#================================================================
+class BusinessContact(BusinessCard):
+    def __init__(self, company, job, *args):
+        super().__init__(*args)
+
+        self.company    = company
+        self.job        = job
+    
+    def __repr__(self):
+        return f"{self.first_name} {self.last_name} as BusinessContact"
+
+    def contact(self):
+        super().contact()
