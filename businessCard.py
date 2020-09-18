@@ -5,15 +5,9 @@ class BusinessCard:
         self.last_name      = last_name
         self.phone_number   = phone_number
         
-        self.label_length   = 0
-        
     @property
     def label_length(self):
-        return self._label_length
-
-    @label_length.setter
-    def label_length(self, value):
-        self._label_length = len(self.first_name) + len(self.last_name) + 1
+        return len(self.first_name) + len(self.last_name) + 1
 
     #----------------------------------------------------------------
     def __repr__(self):
@@ -32,9 +26,6 @@ class BaseContact(BusinessCard):
     def __repr__(self):
         return f"{self.first_name} {self.last_name} as BaseContact"
 
-    def contact(self):
-        super().contact()
-
 #================================================================
 class BusinessContact(BusinessCard):
     def __init__(self, company, job, *args):
@@ -45,6 +36,3 @@ class BusinessContact(BusinessCard):
     
     def __repr__(self):
         return f"{self.first_name} {self.last_name} as BusinessContact"
-
-    def contact(self):
-        super().contact()
