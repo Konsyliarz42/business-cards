@@ -30,6 +30,8 @@ def create_contacts(quantity=1):
         else:
             bcard = BusinessContact(    fake.company(),
                                         fake.job(),
+                                        fake.phone_number(),
+                                        fake.email(),
                                         fake.first_name(),
                                         fake.last_name(),
                                         fake.phone_number() )
@@ -48,8 +50,10 @@ if __name__ == "__main__":
     company         = 'Bojczuk s.c.'
     job             = 'Hutnik'
 
-    base_contact        = BaseContact(email, first_name, last_name, phone_number)
-    business_contact    = BusinessContact(company, job, first_name, last_name, work_number)
+    base_contact        = BaseContact(  first_name=first_name, last_name=last_name, email=email, phone_number=phone_number  )
+
+    business_contact    = BusinessContact(  first_name=first_name, last_name=last_name, company=company, job=job,
+                                            email=email, phone_number=work_number, private_phone_number=phone_number    )
 
     base_contact.contact()
     business_contact.contact()

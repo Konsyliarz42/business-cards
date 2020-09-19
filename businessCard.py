@@ -18,8 +18,8 @@ class BusinessCard:
 
 #================================================================
 class BaseContact(BusinessCard):
-    def __init__(self, email, *args):
-        super().__init__(*args)
+    def __init__(self, email, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.email  = email
 
@@ -27,12 +27,13 @@ class BaseContact(BusinessCard):
         return f"{self.first_name} {self.last_name} as BaseContact"
 
 #================================================================
-class BusinessContact(BusinessCard):
-    def __init__(self, company, job, *args):
-        super().__init__(*args)
+class BusinessContact(BaseContact):
+    def __init__(self, company, job, private_phone_number, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.company    = company
-        self.job        = job
+        self.company                = company
+        self.job                    = job
+        self.private_phone_number   = private_phone_number
     
     def __repr__(self):
         return f"{self.first_name} {self.last_name} as BusinessContact"
