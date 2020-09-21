@@ -1,6 +1,6 @@
 import random
 from faker import Faker
-from businessCard import BusinessCard, BaseContact, BusinessContact
+from businessCard import BaseContact, BusinessContact
 
 #----------------------------------------------------------------
 def generate_business_card(quantity=1):
@@ -8,9 +8,10 @@ def generate_business_card(quantity=1):
     fake = Faker('pl_PL')
 
     for _ in range(quantity):
-        bcard = BusinessCard(   fake.first_name(),
+        bcard = BaseContact(    fake.first_name(),
                                 fake.last_name(),
-                                fake.phone_number() )
+                                fake.phone_number(),
+                                fake.email )
 
         business_cards.append(bcard)
 
