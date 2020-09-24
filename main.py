@@ -39,7 +39,7 @@ def create_contacts(quantity=1):
                                         
         bcards.append(bcard)
 
-    return bcards
+    yield bcards
     
 #================================================================
 if __name__ == "__main__":
@@ -61,4 +61,6 @@ if __name__ == "__main__":
 
     print(base_contact.label_length)
 
-    print(create_contacts(3))
+    for element in create_contacts(3):
+        for contact in element:
+            print(contact)
