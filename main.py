@@ -19,28 +19,23 @@ def generate_business_card(quantity=1):
 
 #----------------------------------------------------------------
 def create_contacts(quantity=1):
-    bcards  = list()
     fake = Faker('pl_PL')
 
     for _ in range(quantity):
         if random.randrange(2) == 0:
-            bcard = BaseContact(    fake.email(),
+            yield BaseContact(  fake.email(),
+                                fake.first_name(),
+                                fake.last_name(),
+                                fake.phone_number() )
+        else:
+            yield BusinessContact(  fake.company(),
+                                    fake.job(),
+                                    fake.phone_number(),
+                                    fake.email(),
                                     fake.first_name(),
                                     fake.last_name(),
                                     fake.phone_number() )
-        else:
-            bcard = BusinessContact(    fake.company(),
-                                        fake.job(),
-                                        fake.phone_number(),
-                                        fake.email(),
-                                        fake.first_name(),
-                                        fake.last_name(),
-                                        fake.phone_number() )
                                         
-        bcards.append(bcard)
-
-    yield bcards
-    
 #================================================================
 if __name__ == "__main__":
     first_name      = 'Natan'
@@ -62,5 +57,4 @@ if __name__ == "__main__":
     print(base_contact.label_length)
 
     for element in create_contacts(3):
-        for contact in element:
-            print(contact)
+        print(element)
